@@ -6,7 +6,7 @@ Extensión de Chrome/Edge para Google Meet: transcribe cada intervención con el
 
 Me cansé de buscar un plugin para transcribir mis reuniones de Meet: todos los que probé cobraban. Un día, usando una prueba gratis de un mes, se venció y me dejaron sin acceso a mis propias reuniones. Ese día fue la gota que rebosó la copa, y me senté a hacer el mío.
 
-MeetScribe es gratis y de código abierto. Tus reuniones se guardan en tu navegador y son tuyas: nadie te las puede quitar. Si quieres un resumen con IA, usas tu propia cuenta. Si te sirve, úsalo; si le ves mejoras, aporta.
+MeetScribe es gratis y de código abierto. Tus reuniones se guardan en tu navegador y son tuyas: tus datos no se van a ninguna parte y nadie los toma para sí. Solo salen si tú lo decides: si quieres un resumen con IA, usas tu propia cuenta, y si compartes el PDF, va a tu propio Drive. Si te sirve, úsalo; si le ves mejoras, aporta.
 
 ## Qué hace
 
