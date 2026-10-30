@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MeetScribe · Reuniones transcritas</title>
+  <link rel="icon" href="icons/icon-32.png">
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <aside>
+    <h1><img src="icons/icon-32.png" width="28" height="28" alt=""> MeetScribe</h1>
+    <input id="search" type="search" placeholder="Buscar en las transcripciones" aria-label="Buscar">
+    <ul id="list"></ul>
+
+    <section id="range">
+      <h2>Descargar por fechas</h2>
+      <div class="dates">
+        <label>Desde <input type="date" id="from"></label>
+        <label>Hasta <input type="date" id="to"></label>
+      </div>
+      <div class="presets">
+        <button data-days="1">Hoy</button>
+        <button data-days="7">7 días</button>
+        <button data-days="30">30 días</button>
+        <button data-days="all">Todo</button>
+      </div>
+      <label>Formato
+        <select id="rangeFormat">
+          <option value="txt">TXT</option>
+          <option value="json">JSON</option>
+        </select>
+      </label>
+      <p id="rangeInfo" class="muted"></p>
+      <button id="dlRange" class="primary">Descargar</button>
+    </section>
+
+    <a id="update" class="update" target="_blank" rel="noopener" hidden></a>
+
+    <button id="aiOpen" class="linklike" type="button">Conectar mi IA (opcional)</button>
+    <footer>MeetScribe <span id="version"></span> · Desarrollado por <a href="https://gospelgeek.github.io/MeetScribe/" target="_blank" rel="noopener">Gospel Geek</a>.</footer>
+  </aside>
+
+  <main>
+    <div id="empty" hidden>
+      <h2>Aún no hay reuniones guardadas</h2>
+      <p>Entra a una reunión en meet.google.com con los subtítulos activados y aparecerá aquí.</p>
+    </div>
+
+    <!-- Tabla solo para el PDF: Chrome repite el <tfoot> al pie de cada hoja. En pantalla se muestra como bloques. -->
+    <table id="detail" hidden><tbody><tr><td id="detailCell">
+      <header>
+        <div>
+          <h2 id="title"></h2>
+          <p id="meta" class="muted"></p>
+          <p id="people" class="people"></p>
+          <p id="drive" class="drive-line" hidden></p>
+        </div>
+        <div class="actions">
+          <button id="rename" class="icon" title="Renombrar" aria-label="Renombrar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button id="dlTxt" title="Descargar como texto">.txt</button>
+          <button id="dlJson" title="Descargar como JSON">.json</button>
+          <button id="dlPdf" title="Guardar como PDF (con screenshots)">.pdf</button>
+          <button id="copy" class="icon" title="Copiar transcripción" aria-label="Copiar transcripción"><svg class="i-copy" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="i-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button>
+          <button id="share" class="icon" title="Compartir el PDF (Google Drive)" aria-label="Compartir el PDF"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+          <button id="mail" class="icon" title="Enviar por correo (Gmail)" aria-label="Enviar por correo"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></button>
+          <button id="remove" class="icon danger" title="Borrar reunión" aria-label="Borrar reunión"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+        </div>
+      </header>
+      <section id="shots"></section>
+      <section id="summary" hidden></section>
+      <div id="transcript"></div>
+    </td></tr></tbody>
+    <tfoot id="printFooter" class="print-only"><tr><td>Transcripción generada con MeetScribe <span id="printVersion"></span> · Desarrollado por GospelGeek · <a href="https://gospelgeek.github.io/MeetScribe/">gospelgeek.github.io/MeetScribe</a></td></tr></tfoot>
+    </table>
+  </main>
+
+  <dialog id="aiDialog" aria-labelledby="aiTitle">
+    <form method="dialog" id="aiForm">
+      <h2 id="aiTitle"><span id="aiTitleText">Conectar mi IA</span> <span class="opt" id="aiTitleOpt">(opcional)</span></h2>
+      <p>MeetScribe puede generar solo, al colgar, un <strong>resumen</strong> de la reunión con sus <strong>decisiones y tareas</strong>. Para eso necesita que conectes <strong>tu propia cuenta</strong> de un proveedor de IA. Si no la conectas, MeetScribe funciona igual que siempre y <strong>no envía nada a ninguna IA</strong>.</p>
+
+      <div class="warn">
+        <h3>Antes de conectar, ten en cuenta</h3>
+        <ul>
+          <li><strong>Casi siempre cuesta dinero.</strong> Se usa la API del proveedor, que se paga por uso y es independiente de cualquier suscripción. Un plan como ChatGPT Plus, Claude Pro o Google AI Pro <strong>no incluye</strong> acceso a la API. Una <strong>cuenta gratuita de ChatGPT o de Claude tampoco sirve</strong>: OpenAI y Anthropic piden cargar saldo en su plataforma de desarrolladores. Una reunión de una hora cuesta desde menos de un centavo hasta unos 15 centavos de dólar según el modelo, y las más largas cuestan más. Pagas directamente al proveedor; MeetScribe no cobra ni recibe nada.</li>
+          <li><strong>Gemini tiene una opción gratuita</strong> (clave de Google AI Studio) con límites de uso que Google cambia y que verás en tu cuenta. Según las condiciones de Google, en el nivel gratuito el contenido enviado puede usarse para mejorar sus productos; en el de pago, no.</li>
+          <li><strong>Modelos en tu propio equipo</strong> (Ollama, LM Studio): son gratis y la reunión no sale de tu computador. Se conectan con la opción «compatible con OpenAI», y requieren un equipo potente y el programa abierto.</li>
+          <li><strong>Tus reuniones salen de tu equipo.</strong> Al generar un resumen se envía al proveedor el texto completo de la reunión: transcripción con los nombres de las personas, chat y título. Lo que pase con esos datos lo rigen las políticas del proveedor, no MeetScribe. Evita hacerlo con reuniones confidenciales y avisa a los participantes. Los screenshots nunca se envían.</li>
+          <li><strong>Tu clave se guarda en este navegador</strong>, sin cifrar, y solo se usa para hablar con el proveedor que elijas. Quien tenga acceso a tu perfil de Chrome podría verla. Conviene crear una clave exclusiva para MeetScribe, con un límite de gasto. Puedes desconectar cuando quieras: eso borra la clave.</li>
+          <li><strong>Puede equivocarse.</strong> El resumen lo escribe una IA a partir de subtítulos automáticos que ya traen errores. Revísalo antes de actuar.</li>
+          <li><strong>Los límites del proveedor aplican.</strong> Si se acaba el saldo, se supera la cuota o el modelo no está disponible, el resumen falla; verás el motivo y podrás reintentar.</li>
+        </ul>
+      </div>
+
+      <label>Proveedor
+        <select id="aiProvider"></select>
+      </label>
+      <label><span id="aiKeyLabel">Clave de API</span> <span class="hint" id="aiKeyLink"></span>
+        <span class="keyrow">
+          <input id="aiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Pega aquí tu clave">
+          <button type="button" id="aiShowKey">Mostrar</button>
+        </span>
+      </label>
+      <label id="aiUrlRow" hidden>Dirección del servicio
+        <input id="aiUrl" type="text" spellcheck="false" placeholder="http://localhost:11434/v1">
+        <span class="hint" id="aiUrlHint"></span>
+      </label>
+      <div id="aiOpenCodeBox" class="warn" hidden>
+        <h3>OpenCode: opción avanzada</h3>
+        <ul>
+          <li><strong>OpenCode es gratis</strong>, pero el modelo que use por detrás puede costar o no, según lo que tengas conectado allí (por ejemplo, un modelo local no cuesta).</li>
+          <li><strong>Es un agente con acceso a tus archivos y a la terminal.</strong> La transcripción incluye lo que dicen otras personas, y alguien podría intentar darle órdenes al agente. Por eso MeetScribe <strong>solo</strong> habla con un agente llamado <code>meetscribe</code> que tú defines <strong>sin ninguna herramienta</strong>. Sin él no se envía nada.</li>
+          <li>Agrega esto a tu <code>opencode.json</code>, ejecuta <code>opencode serve</code> y deja esa terminal abierta mientras uses MeetScribe:</li>
+        </ul>
+        <pre id="aiOpenCodeConfig"></pre>
+        <button type="button" id="aiCopyConfig">Copiar configuración</button>
+      </div>
+      <label>Modelo
+        <input id="aiModel" type="text" spellcheck="false">
+        <span class="hint" id="aiModelHint"></span>
+      </label>
+      <label class="check"><input id="aiAuto" type="checkbox" checked> Generar el resumen automáticamente al colgar</label>
+      <label class="check consent"><input id="aiConsent" type="checkbox"> Entiendo lo anterior: la transcripción de mis reuniones se enviará al proveedor que elegí, puede tener costo y es mi responsabilidad.</label>
+
+      <p id="aiMsg" class="aimsg" role="status"></p>
+      <div class="dialog-actions">
+        <button type="button" id="aiDisconnect" class="danger" hidden>Desconectar</button>
+        <span class="spacer"></span>
+        <button type="button" id="aiTest">Probar conexión</button>
+        <button type="button" id="aiSave" class="primary-btn">Guardar</button>
+        <button type="button" id="aiClose">Cerrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="shareDialog" aria-labelledby="shareTitle">
+    <form method="dialog" id="shareForm">
+      <div id="shareMain">
+      <h2 id="shareTitle">Compartir el PDF</h2>
+      <p class="muted">El PDF se sube a una carpeta <strong>MeetScribe</strong> de <strong>tu Google Drive</strong> y se comparte con las personas que marques; Drive les envía un correo con el enlace. Incluye la transcripción completa y el chat.</p>
+      <p id="shareSetup" class="warn-inline" hidden>Falta conectar MeetScribe con Google Drive (configuración pendiente). Mientras tanto puedes descargar el PDF.</p>
+
+      <h3 class="share-sub">Participantes <span class="hint">(sin ti)</span></h3>
+      <div id="shareRows" class="share-rows"></div>
+      <div class="share-add">
+        <input id="shareExtra" type="email" spellcheck="false" autocomplete="off" placeholder="Añadir a otra persona: correo@ejemplo.com">
+        <button type="button" id="shareAddBtn">Añadir</button>
+      </div>
+
+      <label>Qué pueden hacer
+        <select id="shareRole">
+          <option value="reader">Solo ver</option>
+          <option value="commenter">Ver y comentar</option>
+        </select>
+      </label>
+      <label>Nota personal en el correo de Drive (opcional)
+        <textarea id="shareMsgText" rows="2" placeholder="El correo ya lleva el título, la fecha, los participantes y el enlace. Aquí puedes añadir unas líneas tuyas."></textarea>
+      </label>
+      <label class="check"><input id="shareShots" type="checkbox" checked> Incluir los screenshots en el PDF</label>
+
+      <p id="shareStatus" class="aimsg" role="status"></p>
+      <div id="shareResult"></div>
+      <div class="dialog-actions">
+        <button type="button" id="shareDownload">Descargar este PDF</button>
+        <span class="spacer"></span>
+        <button type="button" id="shareGo" class="primary-btn">Compartir por Drive</button>
+        <button type="button" id="shareClose">Cerrar</button>
+      </div>
+      </div>
+      <div id="shareDone" class="share-done" hidden></div>
+    </form>
+  </dialog>
+
+  <dialog id="mailDialog" aria-labelledby="mailTitle">
+    <form method="dialog" id="mailForm">
+      <h2 id="mailTitle">Enviar por correo</h2>
+      <p class="muted">Se abre Gmail con el correo ya redactado y tú lo envías desde tu cuenta. La transcripción no va en el mensaje.</p>
+      <label>Para
+        <input id="mailTo" type="text" spellcheck="false" autocomplete="off" placeholder="nombre@correo.com, otro@correo.com">
+      </label>
+      <label>CC
+        <input id="mailCc" type="text" spellcheck="false" autocomplete="off" placeholder="Con copia a…">
+      </label>
+      <div class="contacts-box">
+        <span class="hint">Contactos guardados: pulsa uno para añadirlo al campo en que estabas escribiendo.</span>
+        <div id="mailContacts" class="contacts"></div>
+      </div>
+      <label>Asunto
+        <input id="mailSubject" type="text">
+      </label>
+      <label class="check" id="mailSummaryRow" hidden><input id="mailSummary" type="checkbox" checked> Incluir el resumen de la IA en el mensaje</label>
+      <label>Mensaje
+        <textarea id="mailBody" rows="9"></textarea>
+      </label>
+      <p class="attach-note">Gmail no permite adjuntar archivos desde aquí. Si quieres enviar la transcripción, descárgala y arrástrala al correo:
+        <button type="button" id="mailTxt">.txt</button> <button type="button" id="mailPdf">.pdf</button></p>
+      <p id="mailMsg" class="aimsg" role="status"></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button type="button" id="mailOpen" class="primary-btn">Abrir en Gmail</button>
+        <button type="button" id="mailClose">Cerrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="format.js"></script>
+  <script src="shots.js"></script>
+  <script src="pdf-lib.min.js"></script>
+  <script src="pdf.js"></script>
+  <script src="drive.js"></script>
+  <script src="ai.js"></script>
+  <script src="update.js"></script>
+  <script src="history.js"></script>
+</body>
+</html>

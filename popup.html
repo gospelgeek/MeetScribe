@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1><img src="icons/icon-32.png" width="24" height="24" alt=""> MeetScribe</h1>
+
+  <button id="viewAll" class="primary">Ver reuniones</button>
+  <p id="info" class="muted"></p>
+
+  <button id="connectAI" class="secondary">Conectar mi IA</button>
+  <p id="aiStatus" class="aistatus"></p>
+
+  <label>Mi nombre (reemplaza «Tú» / «You»)
+    <input id="myName" type="text" placeholder="Samuel Ramírez">
+  </label>
+  <label class="check">
+    <input id="autoCaptions" type="checkbox"> Activar subtítulos automáticamente
+  </label>
+
+  <label class="check">
+    <input id="screenshots" type="checkbox"> Screenshots automáticos (a los 10 min y luego cada 30)
+  </label>
+
+  <label class="check">
+    <input id="openOnEnd" type="checkbox"> Abrir la transcripción al colgar
+  </label>
+
+  <a id="update" class="update" target="_blank" rel="noopener" hidden></a>
+
+  <footer>MeetScribe <span id="version"></span> · Desarrollado por <a href="https://gospelgeek.github.io/MeetScribe/" target="_blank" rel="noopener">Gospel Geek</a>.</footer>
+
+  <script src="ai.js"></script>
+  <script src="update.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeetScribe · Gospel Geek</title>
+<link rel="icon" type="image/png" href="icon.png">
+<meta name="description" content="Extensión de Chrome que transcribe tus reuniones de Google Meet con el nombre de quien habla. Incluye chat, screenshots y descarga en PDF.">
+<link rel="canonical" href="https://gospelgeek.github.io/MeetScribe/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gospel Geek">
+<meta property="og:locale" content="es_CO">
+<meta property="og:title" content="MeetScribe · Transcribe tus reuniones de Google Meet">
+<meta property="og:description" content="Guarda quién dijo qué, el chat y screenshots de cada reunión, y descárgala en PDF. Extensión gratuita de Chrome.">
+<meta property="og:url" content="https://gospelgeek.github.io/MeetScribe/">
+<meta property="og:image" content="https://gospelgeek.github.io/MeetScribe/preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MeetScribe: transcribe tus reuniones de Google Meet con el nombre de quien habla">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root { --bg:#fff; --panel:#f6f7f9; --text:#202124; --muted:#5f6368; --line:#dadce0; --accent:#1a73e8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#17181b; --panel:#202226; --text:#e8eaed; --muted:#9aa0a6; --line:#3c4043; --accent:#8ab4f8; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:32px 20px 48px; }
+  h1 { display:flex; align-items:center; gap:12px; margin:0 0 4px; font-size:30px; }
+  h1 .logo { width:48px; height:48px; }
+  .donate { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-top:10px; }
+  .nequi-logo { display:inline-block; margin:0; padding:2px 6px; border-radius:6px; background:#fff; line-height:0; }
+  .nequi-logo img { display:block; }
+  .flag { vertical-align:middle; border-radius:2px; box-shadow:0 0 0 1px var(--line); }
+  .copy { vertical-align:middle; padding:4px 6px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--muted); cursor:pointer; line-height:0; }
+  .copy:hover { color:var(--accent); border-color:var(--accent); }
+  .copied { margin-left:0; color:var(--accent); font-size:13px; }
+  details { margin:10px 0; border:1px solid var(--line); border-radius:10px; background:var(--bg); overflow:hidden; }
+  summary { padding:12px 16px; font-size:18px; font-weight:600; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:''; width:8px; height:8px; margin:0 4px 4px 12px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); transform:rotate(45deg); transition:transform .25s ease; }
+  details[open] > summary::after { transform:rotate(225deg); margin-bottom:-2px; }
+  summary:hover { color:var(--accent); }
+  details[open] > summary { color:var(--accent); font-weight:800; }
+  summary { transition:color .25s ease; }
+  details > :not(summary) { margin-left:16px; margin-right:16px; }
+  details > ol, details > ul { margin-left:16px; padding-left:22px; }
+  details > :last-child { margin-bottom:14px; }
+  p { margin:8px 0; }
+  .lead { color:var(--muted); }
+  .card { margin:24px 0; padding:18px 20px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+  .card .ver { font-size:18px; font-weight:600; }
+  .card .meta { color:var(--muted); font-size:14px; }
+  a.btn { display:inline-block; margin-top:12px; padding:10px 18px; border-radius:8px; background:var(--accent); color:var(--bg); font-weight:600; text-decoration:none; }
+  a.btn:hover { opacity:.9; }
+  a { color:var(--accent); }
+  ol, ul { padding-left:22px; }
+  li { margin:6px 0; }
+  code { padding:1px 6px; border-radius:4px; background:var(--panel); border:1px solid var(--line); font-size:.9em; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; text-align:center; }
+</style>
+</head>
+<body>
+<main>
+  <h1><img class="logo" src="icon.png" alt="" width="48" height="48"> MeetScribe</h1>
+  <p class="lead">Transcribe tus reuniones de Google Meet, con el nombre de quien habla, y guárdalas en tu navegador.</p>
+
+  <section class="card">
+    <div class="ver">Última versión: <span id="version">…</span></div>
+    <div class="meta" id="meta"></div>
+    <a class="btn" id="download" href="https://github.com/gospelgeek/MeetScribe/releases/latest/download/meetscribe.zip">Descargar MeetScribe (.zip)</a>
+  </section>
+
+  <details class="guia" open>
+    <summary>Instalación</summary>
+    <p>Funciona en Google Chrome (y navegadores basados en Chromium, como Edge o Brave).</p>
+    <ol>
+      <li>Descarga el archivo .zip con el botón de arriba y <strong>descomprímelo</strong> en una carpeta fija (por ejemplo, <code>Documentos\MeetScribe</code>). No la borres ni la muevas después: Chrome la lee desde ahí.</li>
+      <li>En Chrome abre <code>chrome://extensions</code>.</li>
+      <li>Activa el <strong>Modo de desarrollador</strong> (arriba a la derecha).</li>
+      <li>Pulsa <strong>Cargar descomprimida</strong> y elige la carpeta del paso 1 (la que contiene <code>manifest.json</code>).</li>
+      <li>Opcional: fija la extensión con el icono de la pieza de puzle de la barra de Chrome.</li>
+    </ol>
+  </details>
+
+  <details class="guia">
+    <summary>Cómo se usa</summary>
+    <ol>
+      <li><strong>Entra a una reunión de Google Meet.</strong> En cuanto estás dentro de la llamada (no en la vista previa de la cámara), MeetScribe tarda un par de segundos en activar los subtítulos por ti (puedes desactivarlo en el popup).</li>
+      <li><strong>Comprueba que los subtítulos estén activos: es muy importante.</strong> Sin subtítulos no hay transcripción. Si no se encendieron, verás abajo a la izquierda una etiqueta roja «Subtítulos apagados»: haz clic en ella o en el botón <em>CC</em> de Meet.</li>
+      <li><strong>Habla con normalidad.</strong> Cada intervención se guarda con el nombre real de quien la dijo, la hora y el texto. Tu propio nombre aparece en lugar de «Tú».</li>
+      <li><strong>Cuelga la reunión.</strong> Al terminar, MeetScribe abre solo la página «Ver reuniones» con la transcripción de esa reunión (puedes desactivarlo en el popup). También puedes abrirla cuando quieras desde el icono de la extensión.</li>
+    </ol>
+  </details>
+
+  <details class="guia">
+    <summary>Qué guarda de cada reunión</summary>
+    <ul>
+      <li>El nombre de la reunión (el del calendario si lo tiene; si es improvisada, el código).</li>
+      <li>Hora de inicio, hora de fin y duración.</li>
+      <li>Los participantes.</li>
+      <li>La transcripción, con quién habló y a qué hora.</li>
+      <li>El chat de la reunión.</li>
+    <li>Si lo conectas (opcional), un resumen con decisiones y tareas hecho por tu propia IA (Anthropic, OpenAI, Gemini, un modelo local u OpenCode).</li>
+    <li>Screenshots de la reunión: uno a los 10 minutos y luego uno cada 30, que verás en miniatura al final del reporte. También hay un botón de cámara dentro de la reunión, a la izquierda de los controles, para tomar un screenshot cuando quieras. Los automáticos se pueden apagar en el popup.</li>
+    </ul>
+  </details>
+
+  <details class="guia">
+    <summary>En «Ver reuniones»</summary>
+    <ul>
+      <li><strong>Buscar</strong> en todas las reuniones por palabra, persona o nombre.</li>
+      <li><strong>Renombrar</strong> una reunión si el nombre no te sirve.</li>
+      <li><strong>Descargar</strong> una reunión en <code>.txt</code>, <code>.json</code> o <code>.pdf</code> (el PDF lleva todo: título, participantes, transcripción, chat y screenshots; se abre el diálogo de impresión de Chrome y eliges «Guardar como PDF»), o <strong>copiarla</strong> al portapapeles.</li>
+      <li><strong>Compartir el PDF por Google Drive</strong> (icono de compartir): el PDF se sube a <em>tu</em> Drive y se comparte con los participantes que marques, sin contarte a ti; Drive les envía el correo con el enlace. Escribes el correo de cada persona una vez y MeetScribe lo recuerda. El enlace queda en la página de la reunión, y si compartes otra vez se actualiza el mismo archivo. Solo pide permiso sobre los archivos que crea MeetScribe, no sobre el resto de tu Drive.</li>
+      <li><strong>Enviar por correo</strong> (icono de sobre): abre Gmail con el mensaje ya redactado (resumen y enlace al PDF, nunca la transcripción) y guarda los correos que usas.</li>
+      <li><strong>Descargar por fechas</strong>: elige un rango (o «Hoy», «7 días», «30 días», «Todo») y baja todas las reuniones de esa ventana en un solo archivo.</li>
+      <li><strong>Borrar</strong> una reunión que ya no necesites.</li>
+    </ul>
+  </details>
+
+  <details class="guia">
+    <summary>Para tener en cuenta</summary>
+    <ul>
+      <li>MeetScribe lee los subtítulos de Meet: <strong>si están apagados, no hay transcripción</strong>. Tarda un par de segundos en activarlos al entrar a la llamada; si no lo logra, hazlo tú con el botón <em>CC</em> o la etiqueta roja.</li>
+      <li>El <strong>chat</strong> solo se captura mientras el panel de chat está abierto.</li>
+      <li>Los <strong>participantes</strong> salen de quienes hablan, escriben en el chat o aparecen en el panel «Personas» de Meet.</li>
+      <li>Los <strong>screenshots</strong> solo se toman si la pestaña de Meet está a la vista en ese momento; si no, se toma en cuanto vuelvas a ella. Reuniones de menos de 10 minutos no tienen. Salen las caras y lo que se comparta en pantalla. Al guardar cada una suena un obturador. Chrome pide para esto el permiso «leer todos los sitios»; MeetScribe solo captura la pestaña de Meet.</li>
+    <li>Si cierras la pestaña de golpe, el fin de la reunión puede quedar aproximado.</li>
+      <li>Meet cambia su página de vez en cuando; si algo deja de capturarse tras una actualización suya, avísanos.</li>
+    </ul>
+  </details>
+
+  <details class="guia">
+    <summary>Privacidad</summary>
+    <p>Todo queda en tu navegador (<code>chrome.storage</code>). No se envía a ningún servidor. Lo único que hace la extensión por internet es consultar un archivo pequeño en GitHub para avisarte de versiones nuevas.</p>
+    <p><strong>Excepción, solo si tú la activas:</strong> el botón «Conectar mi IA» (opcional) envía la transcripción de tus reuniones al proveedor de IA que elijas (Anthropic, OpenAI, Google u otro), con tu propia clave y a tu costo, para generar el resumen. Si no lo conectas, nunca se envía nada. En ese modal se explican los costos, los límites y qué datos salen.</p>
+    <p><strong>Otra excepción, solo si compartes:</strong> «Compartir» pide permiso a tu cuenta de Google para subir el PDF a tu Drive y darle acceso a quien elijas. El PDF viaja de tu navegador a tu Drive, sin pasar por nuestros servidores. Más detalles en la <a href="https://gospelgeek.com.co/desarrollo/MeetScribe/privacidad.html">política de privacidad</a>.</p>
+    <p>Aviso: si limpias los datos del navegador o quitas la extensión, las reuniones guardadas se pierden. Descarga lo importante.</p>
+  </details>
+
+  <details class="guia">
+    <summary>Actualizar</summary>
+    <p>Cuando haya una versión nueva, la extensión mostrará un aviso verde «Hay una versión nueva». Para actualizar:</p>
+    <ol>
+      <li>Descarga el .zip nuevo y descomprímelo <strong>sobre la misma carpeta</strong>, reemplazando los archivos.</li>
+      <li>En <code>chrome://extensions</code> pulsa el botón de recargar de MeetScribe.</li>
+    </ol>
+    <p>Tus reuniones guardadas se conservan al actualizar.</p>
+  </details>
+
+  <footer>Código abierto (licencia MIT): <a href="https://github.com/gospelgeek/MeetScribe">github.com/gospelgeek/MeetScribe</a>. ¿Quieres aportar? Abre un <a href="https://github.com/gospelgeek/MeetScribe/issues">issue</a> o un pull request.<br>Desarrollado por <a href="https://gospelgeek.com.co">Gospel Geek</a>.
+    <div class="donate"><strong>Donaciones:</strong> <a class="nequi-logo" href="https://clientes.nequi.com.co/recargas" target="_blank" rel="noopener" title="Donar con Nequi"><img src="nequi.png" alt="Nequi" width="60" height="19"></a> <svg class="flag" viewBox="0 0 24 16" width="24" height="16" role="img" aria-label="Colombia"><rect width="24" height="8" fill="#FCD116"/><rect y="8" width="24" height="4" fill="#003893"/><rect y="12" width="24" height="4" fill="#CE1126"/></svg> <span id="nequi">3196729852</span>
+      <button type="button" class="copy" id="copy" title="Copiar número" aria-label="Copiar número de Nequi"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+      <span class="copied" id="copied" role="status"></span>
+    </div>
+  </footer>
+</main>
+<script>
+  fetch('version.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(v => {
+      document.getElementById('version').textContent = 'v' + v.version;
+      document.getElementById('meta').textContent = [v.date, v.notes].filter(Boolean).join(' · ');
+      if (typeof v.download === 'string' && v.download.startsWith('https://github.com/gospelgeek/MeetScribe/')) {
+        document.getElementById('download').href = v.download;
+      }
+    })
+    .catch(() => { document.getElementById('version').textContent = 'consulta el botón de descarga'; });
+
+  // Desplegables con transicion; solo uno abierto a la vez.
+  const guia = [...document.querySelectorAll('details.guia')];
+  const calmado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function mover(d, abrir) {
+    if (d._anim) d._anim.cancel();
+    const cabecera = d.querySelector('summary').offsetHeight + 2;
+    if (calmado) { d.open = abrir; return; }
+    const desde = d.offsetHeight;
+    if (abrir) d.open = true;
+    const hasta = abrir ? d.scrollHeight + 2 : cabecera;
+    d._anim = d.animate({ height: [desde + 'px', hasta + 'px'] }, { duration: 280, easing: 'ease' });
+    d._anim.onfinish = d._anim.oncancel = () => { d._anim = null; if (!abrir) d.open = false; };
+  }
+  guia.forEach(d => d.querySelector('summary').addEventListener('click', e => {
+    e.preventDefault();
+    guia.forEach(o => { if (o !== d && o.open) mover(o, false); });
+    mover(d, !d.open);
+  }));
+  document.getElementById('copy').addEventListener('click', () => {
+    const msg = document.getElementById('copied');
+    navigator.clipboard.writeText(document.getElementById('nequi').textContent)
+      .then(() => { msg.textContent = 'Copiado'; setTimeout(() => { msg.textContent = ''; }, 2000); })
+      .catch(() => { msg.textContent = 'No se pudo copiar'; });
+  });
+</script>
+</body>
+</html>

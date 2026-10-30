@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeetScribe · Política de privacidad</title>
+<link rel="icon" href="icon.png">
+<style>
+  :root { --bg:#fff; --text:#202124; --muted:#5f6368; --line:#dadce0; --accent:#1a73e8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#17181b; --text:#e8eaed; --muted:#9aa0a6; --line:#3c4043; --accent:#8ab4f8; }
+  }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,sans-serif; }
+  main { max-width:44rem; margin:0 auto; padding:32px 20px 56px; }
+  h1 { display:flex; align-items:center; gap:12px; margin:0 0 4px; font-size:26px; }
+  h2 { margin:30px 0 6px; padding-top:18px; border-top:1px solid var(--line); font-size:18px; }
+  p, li { margin:8px 0; }
+  .muted { color:var(--muted); font-size:14px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1><img src="icon.png" alt="" width="40" height="40"> MeetScribe · Política de privacidad</h1>
+  <p class="muted">Última actualización: 29 de octubre de 2026 · Desarrollado por GospelGeek</p>
+
+  <p>MeetScribe es una extensión de Chrome que transcribe las reuniones de Google Meet a partir de sus subtítulos y guarda la transcripción en tu propio navegador. Esta página explica qué datos usa y qué hace con ellos.</p>
+
+  <h2>Lo esencial</h2>
+  <ul>
+    <li><strong>GospelGeek no recibe, no almacena y no puede ver tus reuniones.</strong> MeetScribe no tiene servidores propios que guarden tu información.</li>
+    <li>Las transcripciones, el chat, los screenshots y los ajustes se guardan <strong>solo en tu navegador</strong> (almacenamiento local de la extensión). Si borras la reunión o la extensión, desaparecen.</li>
+    <li>MeetScribe no incluye publicidad ni herramientas de análisis o seguimiento, y no vende ni comparte datos.</li>
+  </ul>
+
+  <h2>Qué datos maneja la extensión</h2>
+  <ul>
+    <li><strong>Contenido de la reunión:</strong> subtítulos (con el nombre de quien habla), mensajes del chat, lista de participantes, título y horas de la reunión.</li>
+    <li><strong>Screenshots</strong> de la pestaña de Meet, si no desactivas esa opción.</li>
+    <li><strong>Tus ajustes y contactos:</strong> tu nombre, opciones de la extensión, y los correos que escribas para compartir o enviar (asociados al nombre del participante).</li>
+  </ul>
+  <p>Todo esto permanece en tu equipo. La extensión solo se comunica con la red cuando tú lo pides, en los casos que siguen.</p>
+
+  <h2>Funciones opcionales que usan otros servicios</h2>
+  <p><strong>Resumen con tu propia IA.</strong> Solo si conectas una cuenta de un proveedor de IA (por ejemplo Anthropic, OpenAI o Google), MeetScribe envía el texto de la reunión a ese proveedor para generar el resumen. Tu clave se guarda en tu navegador. Lo que el proveedor haga con esos datos lo rigen sus propias políticas. Los screenshots nunca se envían. Si no conectas una IA, no se envía nada.</p>
+
+  <p><strong>Compartir el PDF por Google Drive.</strong> Solo si pulsas «Compartir», MeetScribe te pide permiso para conectarte con tu cuenta de Google. El permiso solicitado es únicamente <code>drive.file</code>: la extensión puede crear en tu Drive el PDF que tú decidas compartir y darle acceso a las personas que marques, y <strong>no puede ver ni modificar ningún otro archivo de tu Drive</strong>. Además:</p>
+  <ul>
+    <li>El PDF se genera en tu navegador y se sube directamente de tu navegador a tu Drive. No pasa por servidores de GospelGeek.</li>
+    <li>La credencial de acceso que entrega Google se mantiene solo en la memoria de la extensión mientras la usas; no se guarda en disco.</li>
+    <li>Drive envía el correo con el enlace a las personas con quienes decidas compartir. Esa persona verá el contenido completo del PDF: transcripción, chat y screenshots si los incluyes.</li>
+    <li>Puedes retirar el permiso cuando quieras en <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>, y borrar o dejar de compartir el archivo desde tu Drive.</li>
+  </ul>
+  <p>El uso que MeetScribe hace de la información recibida de las API de Google se ajusta a la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Política de datos de usuario de los servicios de API de Google</a>, incluidos los requisitos de uso limitado. Los datos de Google solo se usan para ofrecerte esta función; no se transfieren a terceros ni se usan para publicidad o para entrenar modelos.</p>
+
+  <p><strong>Aviso de actualizaciones.</strong> La extensión consulta de vez en cuando el archivo público <code>version.json</code> de esta misma página para saber si hay una versión nueva. No envía datos tuyos en esa consulta.</p>
+
+  <h2>Tu responsabilidad con los demás participantes</h2>
+  <p>Una transcripción contiene lo que dijeron otras personas. Avísales y obtén su consentimiento cuando corresponda, sobre todo antes de compartirla con terceros o enviarla a un proveedor de IA. Cumplir las normas de protección de datos que te apliquen es responsabilidad de quien usa la extensión.</p>
+
+  <h2>Cómo borrar tus datos</h2>
+  <p>Puedes borrar cada reunión desde la página de reuniones de la extensión (icono de papelera), y desinstalar la extensión elimina todo lo guardado. Para los archivos que compartiste por Drive, bórralos desde tu Drive.</p>
+
+  <h2>Cambios y contacto</h2>
+  <p>Si esta política cambia, se publicará aquí con la nueva fecha. Para preguntas o solicitudes sobre tus datos, escríbenos desde <a href="https://gospelgeek.com.co/">gospelgeek.com.co</a>.</p>
+
+  <p class="muted"><a href="index.html">← Volver a MeetScribe</a></p>
+</main>
+</body>
+</html>

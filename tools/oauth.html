@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>MeetScribe · Conexión con Google</title>
+<style>body{font:16px system-ui,sans-serif;max-width:32rem;margin:20vh auto;padding:0 1rem;color:#202124;text-align:center}</style>
+</head>
+<body>
+<p id="m">Conectando con MeetScribe…</p>
+<script>
+// Google devuelve aquí el resultado del inicio de sesión (en el fragmento de la URL, que no se envía a ningún servidor)
+// y esta página lo reenvía a la extensión. El id de la extensión viaja en «state» como «id.nonce».
+(function () {
+  var hash = location.hash;
+  var state = new URLSearchParams(hash.slice(1)).get('state') || '';
+  var id = state.split('.')[0];
+  if (!/^[a-p]{32}$/.test(id)) {
+    document.getElementById('m').textContent = 'Este enlace solo funciona al conectar desde MeetScribe.';
+    return;
+  }
+  location.replace('https://' + id + '.chromiumapp.org/' + hash);
+})();
+</script>
+<noscript>Activa JavaScript para completar la conexión.</noscript>
+</body>
+</html>

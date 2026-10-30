@@ -1,0 +1,13 @@
+# Carpetas privadas del autor: nunca van al repositorio
+examples - no subir/
+Transcripciones/
+
+# Salida de tools/release.ps1 (los zip se publican como Release de GitHub)
+dist/
+
+# Varios
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.claude/
