@@ -1,6 +1,21 @@
 # MeetScribe
 
-Extensión de Chrome/Edge que transcribe las reuniones de Google Meet y guarda cada intervención con el nombre de quien habla.
+Extensión de Chrome/Edge para Google Meet: transcribe cada intervención con el nombre de quien habla, guarda el chat y screenshots, resume con tu propia IA, y comparte el PDF por Drive o correo.
+
+## Qué hace
+
+MeetScribe es más que un transcriptor: guarda la reunión completa y te ayuda a compartirla.
+
+- **Transcribe en vivo** cada intervención con el nombre de quien habla y la hora, a partir de los subtítulos de Meet.
+- **Guarda el contexto:** nombre de la reunión (el del calendario), hora de inicio y fin, duración, participantes y el chat.
+- **Toma screenshots:** automáticos (a los 10 minutos y luego cada 30) y un botón de cámara dentro de Meet para capturar cuando quieras.
+- **Resumen con tu propia IA (opcional):** Anthropic, OpenAI, Gemini, un modelo compatible (Ollama, LM Studio…) u OpenCode. Genera resumen, puntos principales, conclusiones, decisiones, tareas y pendientes. Con tu propia clave y a tu costo.
+- **Historial con buscador:** busca por texto, persona o nombre; renombra y borra reuniones.
+- **Descargas:** `.txt`, `.json` y `.pdf` (título, participantes, resumen, screenshots, transcripción y chat), y **descarga por lotes de fechas** en un solo archivo.
+- **Compartir por Google Drive:** genera el PDF, lo sube a una carpeta «MeetScribe» de tu Drive y lo comparte con los participantes que elijas; Drive les envía el aviso con el enlace. Recuerda los correos y deja el enlace en la página de la reunión.
+- **Enviar por correo:** abre Gmail con el mensaje ya redactado (resumen y enlace al PDF; nunca la transcripción) y recuerda tus contactos.
+- **Privado por defecto:** todo se guarda en tu navegador. Solo sale algo si tú lo decides (resumen con tu IA, compartir por Drive).
+- **Comodidades:** activa los subtítulos solo, abre la transcripción al colgar y avisa cuando hay una versión nueva.
 
 ## Cómo funciona
 

@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MeetScribe · Gospel Geek</title>
 <link rel="icon" type="image/png" href="icon.png">
-<meta name="description" content="Extensión de Chrome que transcribe tus reuniones de Google Meet con el nombre de quien habla. Incluye chat, screenshots y descarga en PDF.">
+<meta name="description" content="Extensión de Chrome para Google Meet: transcribe con el nombre de quien habla, guarda el chat, toma screenshots, resume con tu IA, descarga en PDF y comparte por Drive o correo.">
 <link rel="canonical" href="https://gospelgeek.github.io/MeetScribe/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gospel Geek">
 <meta property="og:locale" content="es_CO">
 <meta property="og:title" content="MeetScribe · Transcribe tus reuniones de Google Meet">
-<meta property="og:description" content="Guarda quién dijo qué, el chat y screenshots de cada reunión, y descárgala en PDF. Extensión gratuita de Chrome.">
+<meta property="og:description" content="Transcribe, guarda el chat y screenshots, resume con tu IA y comparte el PDF por Drive o correo. Extensión gratuita y de código abierto.">
 <meta property="og:url" content="https://gospelgeek.github.io/MeetScribe/">
 <meta property="og:image" content="https://gospelgeek.github.io/MeetScribe/preview.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -64,7 +64,7 @@
 <body>
 <main>
   <h1><img class="logo" src="icon.png" alt="" width="48" height="48"> MeetScribe</h1>
-  <p class="lead">Transcribe tus reuniones de Google Meet, con el nombre de quien habla, y guárdalas en tu navegador.</p>
+  <p class="lead">Transcribe tus reuniones de Google Meet con el nombre de quien habla, guarda el chat y screenshots, las resume con tu IA y comparte el PDF por Drive o correo. Todo queda en tu navegador.</p>
 
   <section class="card">
     <div class="ver">Última versión: <span id="version">…</span></div>
@@ -73,6 +73,22 @@
   </section>
 
   <details class="guia" open>
+    <summary>Qué hace MeetScribe</summary>
+    <p>Más que un transcriptor: guarda la reunión completa y te ayuda a compartirla.</p>
+    <ul>
+      <li><strong>Transcribe en vivo</strong> cada intervención, con el nombre de quien habla y la hora, a partir de los subtítulos de Meet.</li>
+      <li><strong>Guarda el contexto:</strong> nombre de la reunión (el del calendario), hora de inicio y fin, duración, participantes y el chat.</li>
+      <li><strong>Toma screenshots</strong> de la reunión: automáticos (a los 10 minutos y luego cada 30) y un botón de cámara dentro de Meet para capturar cuando quieras.</li>
+      <li><strong>Resume con tu propia IA</strong> (opcional): Anthropic, OpenAI, Gemini, un modelo local u OpenCode. Genera resumen, puntos principales, decisiones, tareas y pendientes.</li>
+      <li><strong>Historial con buscador</strong> de todas tus reuniones: busca por palabra, persona o nombre; renombra y borra.</li>
+      <li><strong>Descarga</strong> en <code>.txt</code>, <code>.json</code> o <code>.pdf</code> (con transcripción, chat, resumen y screenshots), y por <strong>lotes de fechas</strong> en un solo archivo.</li>
+      <li><strong>Comparte el PDF por Google Drive</strong> con los participantes: lo sube a una carpeta MeetScribe de tu Drive y Drive les envía el aviso con el enlace.</li>
+      <li><strong>Envía por correo:</strong> abre Gmail con el mensaje ya redactado, con el resumen y el enlace al PDF.</li>
+      <li><strong>Todo queda en tu navegador.</strong> Nada se envía a ningún servidor salvo lo que tú decidas: el resumen con tu IA o compartir por Drive.</li>
+    </ul>
+  </details>
+
+  <details class="guia">
     <summary>Instalación</summary>
     <p>Funciona en Google Chrome (y navegadores basados en Chromium, como Edge o Brave).</p>
     <ol>
