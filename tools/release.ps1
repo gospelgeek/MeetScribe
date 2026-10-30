@@ -41,6 +41,9 @@ Copy-Item "$root\icons\icon-128.png" (Join-Path $docs 'icon.png') -Force
 # Imagen que se ve al compartir el enlace (se genera con: python tools\make_preview.py)
 Copy-Item (Join-Path $PSScriptRoot 'preview.jpg') (Join-Path $docs 'preview.jpg') -Force
 Copy-Item (Join-Path $PSScriptRoot 'nequi.png') (Join-Path $docs 'nequi.png') -Force
+# Capturas de la pagina y del README (tools\store -> docs\img)
+New-Item -ItemType Directory -Force (Join-Path $docs 'img') | Out-Null
+foreach ($n in 'captura-1-main', 'captura-3-share', 'captura-5-pdf') { Copy-Item (Join-Path $PSScriptRoot "store\$n.png") (Join-Path $docs "img\$n.png") -Force }
 
 $json = [ordered]@{
   version  = $version

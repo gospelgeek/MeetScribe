@@ -59,6 +59,13 @@
   li { margin:6px 0; }
   code { padding:1px 6px; border-radius:4px; background:var(--panel); border:1px solid var(--line); font-size:.9em; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; text-align:center; }
+  .vista { margin:28px 0 8px; }
+  .vista h2 { margin:0 0 12px; font-size:20px; }
+  .vista a { display:block; }
+  .vista img { display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:10px; }
+  .vista .par { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+  .vista figcaption { margin-top:6px; color:var(--muted); font-size:13px; }
+  @media (max-width:560px) { .vista .par { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -70,6 +77,25 @@
     <div class="ver">Última versión: <span id="version">…</span></div>
     <div class="meta" id="meta"></div>
     <a class="btn" id="download" href="https://github.com/gospelgeek/MeetScribe/releases/latest/download/meetscribe.zip">Descargar MeetScribe (.zip)</a>
+  </section>
+
+  <section class="vista">
+    <h2>Cómo se ve</h2>
+    <figure style="margin:0">
+      <a href="img/captura-1-main.png" target="_blank" rel="noopener"><img src="img/captura-1-main.png" alt="Reuniones guardadas, con screenshots y resumen con IA" width="1280" height="800" loading="lazy"></a>
+      <figcaption>Tus reuniones, con screenshots y el resumen de tu IA.</figcaption>
+    </figure>
+    <div class="par">
+      <figure style="margin:0">
+        <a href="img/captura-3-share.png" target="_blank" rel="noopener"><img src="img/captura-3-share.png" alt="Compartir el PDF por Google Drive" width="1280" height="800" loading="lazy"></a>
+        <figcaption>Comparte el PDF por Drive.</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <a href="img/captura-5-pdf.png" target="_blank" rel="noopener"><img src="img/captura-5-pdf.png" alt="El PDF de la reunión" width="1280" height="800" loading="lazy"></a>
+        <figcaption>El PDF completo.</figcaption>
+      </figure>
+    </div>
+    <p class="meta" style="color:var(--muted);font-size:13px">Datos de ejemplo inventados.</p>
   </section>
 
   <details class="guia" open>
