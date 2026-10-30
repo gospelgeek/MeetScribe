@@ -8,7 +8,7 @@ MeetScribe es más que un transcriptor: guarda la reunión completa y te ayuda a
 
 - **Transcribe en vivo** cada intervención con el nombre de quien habla y la hora, a partir de los subtítulos de Meet.
 - **Guarda el contexto:** nombre de la reunión (el del calendario), hora de inicio y fin, duración, participantes y el chat.
-- **Toma screenshots:** automáticos (a los 10 minutos y luego cada 30) y un botón de cámara dentro de Meet para capturar cuando quieras.
+- **Toma screenshots:** automáticos (a los 10 minutos y luego cada 30) y un botón de cámara dentro de Meet para hacer capturas cuando quieras.
 - **Resumen con tu propia IA (opcional):** Anthropic, OpenAI, Gemini, un modelo compatible (Ollama, LM Studio…) u OpenCode. Genera resumen, puntos principales, conclusiones, decisiones, tareas y pendientes. Con tu propia clave y a tu costo.
 - **Historial con buscador:** busca por texto, persona o nombre; renombra y borra reuniones.
 - **Descargas:** `.txt`, `.json` y `.pdf` (título, participantes, resumen, screenshots, transcripción y chat), y **descarga por lotes de fechas** en un solo archivo.
